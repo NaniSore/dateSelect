@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>dateSelect.js — Quick and dirty examples</title>
+	<style type="text/css">
+	body {
+		margin: 0px;
+		padding: 0px;
+		font-family: sans-serif;
+		background: #ddd;
+		color: #222;
+	}
+	article {
+		padding: 10px 5%;
+	}
+	h1, h3{
+		margin: 0px;
+	}
+	header, footer {
+		padding: 20px;
+		text-align: center;
+		background: #333;
+		color: #fafafa;
+	}
+	section {
+		margin-top: 50px;
+	}
+	pre {
+		border-radius: 4px;
+		padding: 15px;
+		background: #333;
+		color: #fafafa;
+		font-size: 1.3em;
+	}
+	a, a:visited { color: white; }
+	a:hover {text-decoration: none; }
+	.epic {
+		background: #010101;
+		padding: 4px 5%;
+	}
+	.epic a { color: #ddd;}
+	.selector {
+		padding: 3px;
+		margin: 0px;
+		border: #aaa solid 1px;
+	}
+	#left { border-radius: 4px 0px 0px 4px; }
+	#middle { border-radius: 0px; }
+	#rigth { border-radius: 0px 4px 4px 0px; }
+
+	</style>
+</head>
+<body>
+	<header>
+		<h1>dateSelect.js</h1>
+		<h3>Quick and dirty examples</h3>
+	</header>
+	<div class="epic">
+		<a href="https://github.com/hersonHN/dateSelect">&lt;&lt; back to project</a>
+	</div>
+	<article>
+		
+		<section>
+			<h2>Simpliest example</h2>
+			<p>This is the simpliest example ever.</p>
+			<p><input id="example1" value=""/></p>
+			<pre><code>var example1 = document.getElementById("example1");
+new dateSelect(example1);</code></pre>
+		</section>
+
+		<section>
+			<h2>With custom date</h2>
+			<p>To use a custom date, just place it in the value of the input.</p>
+			<p><input id="example2" value="1986-04-26"/></p>
+			<pre><code>/*
+    Same code for this, just change the input tag
+    &lt;input id=&quot;example2&quot; value=&quot;1986-04-26&quot;/&gt;
+*/</code></pre>
+		</section>
+
+		<section>
+			<h2>With parameters</h2>
+			<p>Parameters for customize the selector</p>
+			<p><input id="example3" value="1821/09/15"/></p>
+			<pre><code>var example3 = document.getElementById("example3");
+    new dateSelect(example3, {
+    separator: "/",
+    months: [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    selectsAttrs: { "class" : "selector" },
+    yElementAttrs: { "id": "left" },
+    mElementAttrs: { "id": "middle" },
+    dElementAttrs: { "id": "rigth" }
+});</code></pre>
+		</section>
+
+		<section>
+			<h2>Date Range</h2>
+			<p>A range of dates, with a function for valid input.</p>
+			<p>
+				<input id="example4-begin" value=""/> — 
+				<input id="example4-end" value=""/>
+			</p>
+			<pre><code>var example4_beg = document.getElementById("example4-begin"),
+    example4_end = document.getElementById("example4-end"),
+    parameters = {
+    minY: 2000,
+    maxY: (new Date).getFullYear(),
+    selectsAttrs: { "class" : "selector" },
+    yElementAttrs: { "id": "left" },
+    mElementAttrs: { "id": "middle" },
+    dElementAttrs: { "id": "rigth" },
+    afterChange: function(e) {
+        var date1 = parseInt(dateBeg.date.replace(/\-/g, ""), 10),
+            date2 = parseInt(dateEnd.date.replace(/\-/g, ""), 10);
+        if (date1 > date2) {
+            alert("Initial date can't be greater than final date\nPlease do not do that :(");
+        }
+    }
+};
+dateBeg = new dateSelect(example4_beg, parameters);
+dateEnd = new dateSelect(example4_end, parameters);
+</code></pre>
+		</section>
+	</article>
+	<footer>
+		<p>From @hersonHN to everyone who want to use it. With Love &lt;3</p>
+		<p><a href="https://www.github.com/hersonHN">hersonHN at Git</a> |
+		<a href="https://www.twitter.com/hersonHN">hersonHN at Twit</a></p>
+		<p style="margin-bottom: 70px; font-size: 1.5em">— ❦ —</p>
+	</footer>
+	<script type="text/javascript" src="dateSelect.js"></script>
+	<script id="look_mom_with_no_framework" type="text/javascript">
+
+	window.onload = function () {
+
+		// Example 1
+		var example1 = document.getElementById("example1");
+		new dateSelect(example1);
+
+		// Example 2
+		var example2 = document.getElementById("example2");
+		new dateSelect(example2);
+
+		// Example 3
+		/*
+			Months are in spanish because I'm hispanic (ORLY!?)
+			The 21-Sep-1821 is the date of Central American Independence (FYI)
+		*/
+		var example3 = document.getElementById("example3");
+		new dateSelect(example3, {
+			separator: "/",
+			months: [
+				"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+				"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+			selectsAttrs: { "class" : "selector" },
+			yElementAttrs: { "id": "left" },
+			mElementAttrs: { "id": "middle" },
+			dElementAttrs: { "id": "rigth" }
+		});
+
+		// Example 4
+		var example4_beg = document.getElementById("example4-begin"),
+			example4_end = document.getElementById("example4-end"),
+			parameters = {
+			minY: 2000,
+			maxY: (new Date).getFullYear(),
+			selectsAttrs: { "class" : "selector" },
+			yElementAttrs: { "id": "left" },
+			mElementAttrs: { "id": "middle" },
+			dElementAttrs: { "id": "rigth" },
+			afterChange: function(e) {
+				var date1 = parseInt(dateBeg.date.replace(/\-/g, ""), 10),
+					date2 = parseInt(dateEnd.date.replace(/\-/g, ""), 10);
+				if (date1 > date2) {
+					alert("Initial date can't be greater than final date\nPlease do not do that :(");
+				}
+			}
+		};
+
+		dateBeg = new dateSelect(example4_beg, parameters);
+		dateEnd = new dateSelect(example4_end, parameters);
+
+	}
+	</script>
+</body>
+</html>
